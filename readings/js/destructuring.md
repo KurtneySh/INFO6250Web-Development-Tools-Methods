@@ -28,7 +28,7 @@ function checkAnimal( animal ) {
   const name = animal.name;
   const state = animal.state;
 
-  console.log(`${animal} is ${state}`);
+  console.log(`${name} is ${state}`);
 }
 
 checkAnimal(animal);
@@ -51,7 +51,7 @@ const animal = {
 function checkAnimal( animal ) { 
   const { name, state } = animal;
 
-  console.log(`${animal} is ${state}`);
+  console.log(`${name} is ${state}`);
 }
 
 checkAnimal(animal);
