@@ -1,17 +1,20 @@
 const chatWeb = {
   chatPage: function(chat) {
-    // Fill in/modify anything below!
     return `
       <!doctype html>
       <html>
         <head>
-          <title>Chat</title>
+          <title>Chat Room</title>
+          <link rel="stylesheet" href="chat.css">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;900&display=swap" rel="stylesheet">
         </head>
         <body>
           <div id="chat-app">
-            ${chatWeb.getUserList(chat)}
-            ${chatWeb.getMessageList(chat)}
-            ${chatWeb.getOutgoing(chat)}
+              ${chatWeb.getUserList(chat)}
+              ${chatWeb.getMessageList(chat)}
+              ${chatWeb.getOutgoing(chat)}
           </div>
         </body>
       </html>
@@ -20,8 +23,14 @@ const chatWeb = {
 
   getMessageList: function(chat) {
     return `<ol class="messages">` +
-      // Fill in
-      // Generate the HTML for the list of messages
+      Object.values(chat.messages).map( message => `
+        <li>
+          <div class="chat-box">
+            <span class="sender">${message.sender}</span>
+            <span class="message">${message.text}</span>
+          </div>
+        </li>
+      `).join('') +
       `</ol>`;
   },
   getUserList: function(chat) {
@@ -36,8 +45,13 @@ const chatWeb = {
     `</ul>`;
   },
   getOutgoing: function() {
-    // Fill in
-    // Generate the HTML for a form to send a message
-  }
+    return  `
+    <form class="outgoing" action="/chat" method="POST">
+      <input name="text" placeholder="Enter message to send">
+      <input name="username" type="hidden">
+      <button type="submit">send</button>
+    </form>
+    `
+  },
 };
 module.exports = chatWeb;
