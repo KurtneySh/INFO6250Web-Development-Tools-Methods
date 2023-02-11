@@ -1,0 +1,137 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#chat-app {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: auto auto;
+    grid-template-areas: 
+        "users messages"
+        "users outgoing"
+    ;
+
+    height: 100vh;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.sender {
+    font-size: small;
+    color: gray;
+}
+
+.users {
+    grid-area: users;
+
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    padding: 0;
+    margin-top: 0;
+    margin-right: 30px;
+    list-style-type: none;
+    background-color: green;
+}
+
+.user {
+    height: 50px;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user:hover {
+    background-color: rgb(169, 232, 122);
+}
+
+.messages { 
+    grid-area: messages;
+
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow-y: scroll;
+
+    border-radius: 5px;
+    background-color: white;
+}
+
+.message {
+    width: 70vw;
+    display: flex;
+    align-items: center;
+}
+
+.chat-box {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.chat-box:hover {
+    background-color: rgb(217, 217, 217);
+    opacity: 0.8;
+}
+
+.outgoing { 
+    grid-area: outgoing;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 95%;
+    margin: 10px 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(224, 224, 224);
+    box-shadow: 1px 5px 5px grey;
+
+    position: sticky;
+}
+
+span {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+input {
+    width: 75%;;
+    height: 100%;
+    font-size: 20px;
+    border: none;
+    background-color: rgb(224, 224, 224);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    width: 15%;
+    height: 100%;
+    font-size: 15px;
+    color: white;
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+@media only screen and (max-width: 800px) {
+    button {
+        width: 100px;
+    }
+}
