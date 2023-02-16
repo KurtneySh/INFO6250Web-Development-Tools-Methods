@@ -1,0 +1,83 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    width: 100vw;
+    background-color: rgb(76, 168, 63);
+    color: white;
+    font-size: 60px;
+    margin: 0;
+    padding: 10px;
+}
+
+.display-panel {
+    width: 30rem;
+    height: 30rem;
+    padding: 0 80px;
+    margin-top: 100px;
+    background-color: rgb(76, 168, 63);
+    border-radius: 8px;
+    box-shadow: 1px 5px 5px gray;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form, input, button {
+    width: 100%;
+}
+
+input, button {
+    text-align: center;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+}
+
+button {
+    box-shadow: 1px 3px 3px gray;
+    margin-top: 10px;
+}
+
+button:hover {
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+.words {
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.submit-button:hover {
+    background-color: green;
+    color: white;
+}
+
+.logout-button:hover {
+    color: white;
+    background-color: red;
+}
+
+@media only screen and (max-width: 800px) {
+    .display-panel {
+        width: 27rem;
+        height: 27rem;
+    }
+}
