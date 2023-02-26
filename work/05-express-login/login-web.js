@@ -11,9 +11,11 @@ const loginWeb = {
             <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;900&display=swap" rel="stylesheet">
           </head>
           <body>
-            <h1>Hi, ${user}</h1>
+            <h1>Hi, ${user}
+                <div class="previous-words">Your previous words are: ${loginData.userInfo[user].map(word => word).join(', ')}</div>
+            </h1>
             <div class="display-panel">
-                <div class="words">Your word is: ${loginData.userInfo[user]}</div>
+                <div class="words">Your last word is: ${loginData.userInfo[user][loginData.userInfo[user].length - 1] ? loginData.userInfo[user][loginData.userInfo[user].length - 1] : ''}</div>
                 <form action="/changeword" method="POST">
                     <input 
                         name="word"

@@ -94,7 +94,7 @@ app.post('/changeword', (req, res) => {
     const sid = req.cookies.sid;
     const username = sessions[sid]?.username;
     if (word) {
-        loginData.userInfo[username] = word;
+        loginData.userInfo[username].push(word);
     };
     res.redirect('/');
 });

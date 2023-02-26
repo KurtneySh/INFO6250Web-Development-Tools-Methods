@@ -4,8 +4,10 @@
 }
 
 body {
+    width: 100vw;
     margin: 0;
     padding: 0;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,7 +15,7 @@ body {
 }
 
 h1 {
-    width: 100vw;
+    width: 100%;
     background-color: rgb(76, 168, 63);
     color: white;
     font-size: 60px;
@@ -55,6 +57,13 @@ button {
 button:hover {
     font-size: 20px;
     transition: 0.5s;
+}
+
+.previous-words {
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .words {
