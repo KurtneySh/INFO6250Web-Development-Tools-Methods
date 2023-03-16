@@ -11,7 +11,7 @@
   "author": "Brett Ritter <swiftone@swiftone.org>",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
