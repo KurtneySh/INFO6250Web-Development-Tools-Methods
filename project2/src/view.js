@@ -1,89 +1,74 @@
-const errorView = (error) => {
-    if(error === 'required-username') {
-        return `<div class="error-warning">Please enter a valid username.</div>`;
+export function render( { state, appEl }) {
+    if(state.loginStatus) {
+        appEl.innerHTML = `
+        <div class="main">
+            ${generateErrorHtml( state )}
+            ${generateChatHtml( state )}
+            <div class="logout-container">
+                <button class="logout-button">Logout</button>
+            </div>
+        </div>
+        `
+    } else {
+        appEl.innerHTML = `
+        <div class="main">
+            <h2>Please login</h2>
+            ${generateErrorHtml( state )}
+            ${generateLoginHtml( state )}
+        </div>
+        `
     }
-    else if (error === 'auth-insufficient') {
-        return `<div class="error-warning">Sorry, you do not have the authority to access.</div>`
-    }
-    else if (error === 'network-error') {
-        return `<div class="error-warning network-error">There is something wrong with your connection to the server. <div>Please try again later.</div></div>`
-    }
-    else if (error === 'required-message') {
-        return `<div class="error-warning">Please enter message.</div>`
-    }
-    else return "";
 }
 
-
-const longinView = (error) => {
+function generateErrorHtml( state ) {
     return `
-    <div class="login-container">
-        <div class='greeting'>Chat Space</div>
-        <div class='greeting'>Please Login first</div>
-        <div class="login">
-            <input type="text" class="login-input" placeholder="Enter Username">
-            <button class="login-button">Log in</button>
-        </div>
-        <div>${error ? errorView(error) : ""}</div>
+        <div class="error">${state.error}</div>
+    `;
+}
+
+function generateLoginHtml() {
+    return `
+    <div class="login">
+        <input type="text" class="login-input" placeholder="Enter Username">
+        <button class="login-button">Log in</button>
     </div>
     `
 }
 
-const activeUserView = (users) => {
-    const activeUsers = ['<div class="users-online">Users Online</div>'];
-    for(const user in users) {
-        activeUsers.push(`
-        <div class=${users[user].isLoggedIn ? 'active-user' : 'non-active-user'}>
-            <div class='online-mark'></div>
-            <div>${user}</div>
-        </div>`);
-    }
-    return activeUsers.join('');
+function generateChatHtml( state ) {
+    return `
+        <div class="chat-container">
+            <div class="users-container">${usersHtml(state.users)}</div>
+            <div class="messages-container">${messagesHtml(state.messages)}</div>
+            <div class="send-message-container">${sendMessageHtml()}</div>
+        </div>
+    `
 }
 
-const messagesView = (messages) => {
+export function usersHtml( users ) {
+    const usersList = [];
+    for(const user in users) {
+        usersList.push(`
+        <div class=${users[user].loginStatus ? 'online-user' : 'offline-user'}>
+            ${user}
+        </div>`);
+    }
+    return usersList.join('');
+}
+
+export function messagesHtml( messages ) {
     return messages.map( message => (`
-        <div class="message-container">
-            <div class="message-username">${message.username}</div>
-            <div class="message-words">${message.message}</div>
+        <div class="one-message-container">
+            <div class="username">${message.username}</div>
+            <div>${message.message}</div>
         </div>
     `)).join('');
 }
 
-const messageInputView = (error) => {
+function sendMessageHtml() {
     return `
-    <form class="message-input-form">
-        <input type="text" class="message-input" placeholder="Enter message here. Press Enter to send.">
+    <form>
+        <input type="text" class="message-input" placeholder="Enter message here">
     </form>
-    <div>${error ? errorView(error) : ""}</div>
     `
 }
-
-const chatView = (state) => {
-    return `
-    <div class="chat-view">
-        <div class="user-info">
-            <div>${state.username}</div>
-            <button class="logout-button">Logout</button>
-        </div>
-        <div class="chat-room">
-            <div class="active-users">
-                ${activeUserView(state.users)}
-            </div>
-            <div class="messages">${messagesView(state.messages)}</div>
-            <div id="message-input-container">${messageInputView(state.error)}</div>
-        </div>
-    </div>
-    `
-}
-
-const render = (state) => {
-    if(state.error === 'network-error') return errorView(state.error);
-    if(state.hasValidSession) {
-        return `${chatView(state)}`;
-    } else {
-        return `${longinView(state.error)}`;
-    }
-}
-
-export { messagesView, render, messageInputView, activeUserView };

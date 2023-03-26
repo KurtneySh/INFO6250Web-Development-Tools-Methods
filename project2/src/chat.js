@@ -1,107 +1,102 @@
-import { fetchSession, fetchLogin, logout, fetchMessages, postMessage } from "./services";
-import state from "./state";
-import { messagesView, render, messageInputView, activeUserView } from "./view";
+import {
+    fetchSession,
+    fetchLogin,
+    fetchLogout,
+    fetchGetMessages,
+    fetchPostMessage,
+} from './services';
 
-const app = document.querySelector("#app");
+import state, {
+    login,
+    logout,
+    getMessages,
+    setError,
+} from './state';
 
-app.addEventListener('click', (e) => {
+import {
+    render,
+    usersHtml,
+    messagesHtml,
+} from './view';
 
+const appEl = document.querySelector('#app');
+
+appEl.addEventListener('click', (e) => {
     // login
     if(e.target.classList.contains('login-button')) {
         const username = document.querySelector('.login-input').value;
         fetchLogin(username)
         .then( response => {
-            fetchMessages()
+            fetchGetMessages()
             .then( response => {
-                state.updateValidSession(response);
-                app.innerHTML = render(state);
-
-                // keep messages element scroll to bottom
-                const messagesEl = document.querySelector('.messages');
-                messagesEl.scrollTop = messagesEl.scrollHeight;
+                login(response);
+                render({ state, appEl });
             })
         })
         .catch( error => {
-            state.updateError(error);
-            app.innerHTML = render(state);
+            setError(error.error)
+            render({ state, appEl });
         })
     }
 
     // logout
     if(e.target.classList.contains('logout-button')) {
-        logout()
+        fetchLogout()
         .then(response => {
-            state.deleteValidSession();
-            app.innerHTML = render(state);
+            logout()
+            render({ state, appEl });
         })
         .catch( error => {
-            state.updateError(error);
-            app.innerHTML = render(state);
+            setError(error.error);
+            render({ state, appEl });
         })
     }
 })
 
-
-// send new message
 app.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const messageInputEl = document.querySelector('#message-input-container');
-    const messageEl = document.querySelector('.message-input');
-    const message = messageEl.value;
+    const message = document.querySelector('.message-input').value;
 
-    postMessage(message)
+    fetchPostMessage(message)
     .then( response => {
-        state.updateMessages(response);
-        const messagesEl = document.querySelector('.messages');
-        messageEl.value = '';
-        messagesEl.innerHTML = messagesView(state.messages);
-
-        // keep messages element scroll to bottom & empty message input
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-        messageInputEl.innerHTML = messageInputView(state.error);
+        login(response);
+        render({ state, appEl });
     })
     .catch( error => {
-        state.updateError(error);
-        if(state.error === 'network-error') app.innerHTML = render(state);
-        else messageInputEl.innerHTML = messageInputView(state.error);
+        setError(error.error);
+        render({ state, appEl });
     })
 })
 
-
-// runs on load
 fetchSession()
 .then( response => {
-    fetchMessages()
-    .then( response => {
-        state.updateValidSession(response);
-        app.innerHTML = render(state);
-
-        // keep messages element scroll to bottom
-        const messagesEl = document.querySelector('.messages');
-        if(messagesEl) messagesEl.scrollTop = messagesEl.scrollHeight;
-
-        // poll
-        pollChats();
+    fetchGetMessages()
+    .then(response => {
+        login(response);
+        render({ state, appEl});
     })
 })
 .catch( error => {
-    state.deleteValidSession();
-    app.innerHTML = render(state);
+    logout();
+    render({ state, appEl });
 })
 
+pollChats();
+
 function refreshChat() {
-    fetchMessages()
+    fetchGetMessages()
     .then( response => {
-        state.updateValidSession(response);
-        const activeUsersEl = document.querySelector('.active-users');
-        activeUsersEl.innerHTML = activeUserView(state.users);
-        const messagesEl = document.querySelector('.messages');
-        messagesEl.innerHTML = messagesView(state.messages);
-        messagesEl.scrollTop = messagesEl.scrollHeight;
+        login(response);
+
+        const usersContainerEl = document.querySelector('.users-container');
+        usersContainerEl.innerHTML = usersHtml(state.users);
+
+        const messagesContainerEl = document.querySelector('.messages-container');
+        messagesContainerEl.innerHTML = messagesHtml(state.messages);
     })
     .catch( error => {
-        state.deleteValidSession();
+        setError(error.error);
     })
 }
 

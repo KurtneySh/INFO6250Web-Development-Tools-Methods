@@ -1,30 +1,40 @@
+import { MESSAGES } from "./constant";
+
 const state = {
-    hasValidSession: false,
+    loginStatus: false,
     username: '',
     users: {},
     messages: [],
     error: '',
-    updateValidSession(response) {
-        this.hasValidSession = true;
-        this.username = response.username;
-        this.users = response.users;
-        this.messages = response.messages;
-        this.error = '';
-    },
-    deleteValidSession() {
-        this.hasValidSession = false;
-        this.username = '';
-        this.users = {};
-        this.messages = [];
-        this.error = '';
-    },
-    updateMessages(response) {
-        this.messages = response.messages;
-        this.error = '';
-    },
-    updateError(error) {
-        this.error = error.error;
+}
+
+export function login( response ) {
+    state.loginStatus = true;
+    state.username = response.username;
+    state.users = response.users;
+    state.messages = response.messages;
+    state.error = '';
+}
+
+export function logout() {
+    state.loginStatus = false;
+    state.username = '';
+    state.users = {};
+    state.messages = [];
+    state.error = '';
+}
+
+export function getMessages( response ) {
+    state.messages = response.messages;
+    state.error = '';
+}
+
+export function setError( error ) {
+    if(!error) {
+        state.error = '';
+        return;
     }
+    state.error = MESSAGES[error] || MESSAGES.default;
 }
 
 export default state;

@@ -26,7 +26,7 @@ export function fetchLogin(username) {
     })
 }
 
-export function logout() {
+export function fetchLogout() {
     return fetch('/api/session', {
         method: 'DELETE',
     })
@@ -34,7 +34,7 @@ export function logout() {
     .then( response => { console.log('logout success'); })
 }
 
-export function fetchMessages() {
+export function fetchGetMessages() {
     return fetch('/api/messages')
     .catch( error => Promise.reject({ error: 'network-error' }) )
     .then( response => {
@@ -43,7 +43,7 @@ export function fetchMessages() {
     })
 }
 
-export function postMessage(message) {
+export function fetchPostMessage(message) {
     return fetch('/api/message', {
         method: 'POST',
         headers: {

@@ -1,6 +1,5 @@
-const users = {}; // { "jack": { loginStatus: false }}
-
-const messages = []; // [{ username: "jack", message: "hello" }, { username: "mary", message: "how are you" }]
+const users = {};
+const messages = [];
 
 const isValidUsername = (username) => {
     let isValid = true;

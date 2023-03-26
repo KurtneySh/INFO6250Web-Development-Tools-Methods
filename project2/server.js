@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
 
-const userInfo = require('./userInfo');
+const usersInfo = require('./users-info');
 const sessions = require('./sessions');
 
 app.use(cookieParser());
@@ -15,50 +15,47 @@ app.get('/api/session', (req, res) => {
     const sid = req.cookies.sid;
     const username = sid ? sessions.getSessionUser(sid) : '';
 
-    if (!sid || !username) {
+    if(!sid || !username) {
         res.status(401).json({error: 'auth-missing'});
         return;
     }
 
-    userInfo.users[username].isLoggedIn = true;
+    usersInfo.users[username].loginStatus = true;
 
-    res.json({ username, users: userInfo.users });
+    res.json({ username, users: usersInfo.users });
 });
 
 app.post('/api/session', (req, res) => {
     const { username } = req.body;
 
-    if (!userInfo.isValidUsername(username)) {
+    if(!usersInfo.isValidUsername(username)) {
         res.status(400).json({ error: 'required-username' });
         return;
     }
 
-    if (username === 'dog') {
+    if(username === 'dog') {
         res.status(403).json({ error: 'auth-insufficient' });
         return;
     }
 
-    userInfo.users[username] = {
-        isLoggedIn: true
-    };
-
     const sid = sessions.addSession(username);
     res.cookie('sid', sid);
 
-    res.json({ username, users: userInfo.users });
+    usersInfo.users[username] = {
+        loginStatus: true
+    };
+
+    res.json({ username, users: usersInfo.users });
 });
 
 app.delete('/api/session', (req, res) => {
     const sid = req.cookies.sid;
     const username = sid ? sessions.getSessionUser(sid) : '';
 
-    if (sid) {
-        res.clearCookie('sid');
-    }
-
-    if (username) {
+    if(sid) res.clearCookie('sid');
+    if(username) {
         sessions.deleteSession(sid);
-        userInfo.users[username].isLoggedIn = false;
+        usersInfo.users[username].loginStatus = false;
     }
 
     res.json({wasLoggedIn: !!username});
@@ -68,23 +65,20 @@ app.get('/api/messages', (req, res) => {
     const sid = req.cookies.sid;
     const username = sid ? sessions.getSessionUser(sid) : '';
 
-    if (!sid || !username) {
+    if(!sid || !username) {
         res.status(401).json({ error: 'auth-missing' });
         return;
     }
 
-    userInfo.users[username].isLoggedIn = true;
-
-    const users = userInfo.users;
-    const messages = userInfo.messages;
-    res.json({ username, users, messages });
+    usersInfo.users[username].loginStatus = true;
+    res.json({ username, users: usersInfo.users, messages: usersInfo.messages });
 });
 
 app.post('/api/message', (req, res) => {
     const sid = req.cookies.sid;
     const username = sid ? sessions.getSessionUser(sid) : '';
 
-    if (!sid || !username) {
+    if(!sid || !username) {
         res.status(401).json({ error: 'auth-missing' });
         return;
     }
@@ -92,15 +86,13 @@ app.post('/api/message', (req, res) => {
     const { message } = req.body;
     const newMessage = { username, message };
     
-    if (!message) {
+    if(!message) {
         res.status(400).json({ error: 'required-message' });
         return;
     }
 
-    userInfo.messages.push(newMessage);
-    
-    const messages = userInfo.messages;
-    res.json({ username, messages });
+    usersInfo.messages.push(newMessage);
+    res.json({ username, users: usersInfo.users, messages: usersInfo.messages });
 })
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
