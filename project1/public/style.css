@@ -1,0 +1,154 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(#603701, #000000);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: white;
+    font-size: 40px;
+    margin: 0;
+    padding: 10px;
+    text-shadow: 0 0 5px black;
+}
+
+.login-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 50%;
+    height: 30rem;
+    padding: 0 80px;
+    margin-top: 100px;
+    border-radius: 8px;
+    box-shadow: 1px 5px 5px black;
+    background: radial-gradient(ellipse farthest-corner at right bottom, #676665 0%, #656360 8%, #7f7d7a 30%, #93918f 40%, transparent 80%),
+    radial-gradient(ellipse farthest-corner at left top, #ffffff 0%, #aba9a1 20%, #94938f 40%, #717170 62.5%, #464646 100%);
+}
+
+.possible-words {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.possible-word {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 60px;
+    padding: 3px;
+    margin: 3px;
+    font-size: 20px;
+    border-radius: 8px;
+    color: white;
+    text-shadow: 0 0 10px black;
+    box-shadow: 1px 5px 5px black;
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+                radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+}
+
+.possible-word:hover {
+    opacity: 0.8;
+}
+
+
+.display-panel {
+    display: grid;
+    grid-template-areas:
+    "guess"
+    "guess"
+    "control";
+
+    width: 50%;
+    height: 30rem;
+    padding: 0 80px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 1px 5px 5px black;
+    background: radial-gradient(ellipse farthest-corner at right bottom, #676665 0%, #656360 8%, #7f7d7a 30%, #93918f 40%, transparent 80%),
+    radial-gradient(ellipse farthest-corner at left top, #ffffff 0%, #aba9a1 20%, #94938f 40%, #717170 62.5%, #464646 100%);
+}
+
+.guess-container {
+    grid-area: guess;
+
+    width: 100%;
+    color: #00FF00;
+    text-shadow: 0 0 5px #00FF00;
+    background-color: black;
+    font-size: 20px;
+    border: 5px ridge white;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 20px 0 0 0;
+    position: relative;
+}
+
+.control-panel {
+    grid-area: control;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.winning-status {
+    font: 30px bold;
+    text-align: center;
+    bottom: 0;
+    position: absolute;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+form, input, button {
+    width: 100%;
+}
+
+input, button {
+    text-align: center;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+}
+
+button {
+    box-shadow: 1px 3px 3px black;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.8;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+.submit-button:hover {
+    background-color: green;
+    color: white;
+}
+
+.logout-button:hover {
+    color: white;
+    background-color: red;
+}
