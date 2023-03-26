@@ -1,0 +1,146 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+}
+
+body {
+    background-color: antiquewhite;
+}
+
+img {
+    border-radius: 5px;
+}
+
+
+ul, li {
+    list-style: none;
+}
+
+button {
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 1px 3px 3px gray;
+    border: none;
+}
+
+button:hover {
+    font-size: 15px;
+    transition: 0.5s;
+}
+
+.cat-list {
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    background-color: rgba(31, 236, 167, 0.852);
+    box-shadow: 1px 3px 3px gray;
+
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cat {
+    height: 270px;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat img {
+    margin-bottom: 10px;
+}
+
+.cat button {
+    margin-top: 10px;
+}
+
+.cart img {
+    width: 80px;
+}
+
+.cart {
+    width: 100%;
+}
+
+.cart-cat {
+    width: 100%;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(31, 236, 167, 0.852);
+    box-shadow: 1px 3px 3px gray;
+
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.cart-cat > img {
+    margin-right: 10px;
+}
+
+.empty-cart {
+    text-align: center;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.gg-shopping-cart {
+    --ggs: 10;
+    margin-top: 100px;
+    position: fixed;
+    bottom: 0;
+}
+
+.add, .reduce {
+    font-size: 50px;
+}
+
+.delete {
+    width: 100px;
+    height: 60px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+}
+
+.delete:hover {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+}
+
+.show {
+    margin-bottom: 30px;
+}
+
+.checkout {
+    margin-top: 30px;
+}
