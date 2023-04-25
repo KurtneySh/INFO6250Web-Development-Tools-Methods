@@ -1,7 +1,7 @@
 const userInfo = {}; //key -> user; value -> word
 
 function addUser(username) {
-    userInfo[username] = "";
+    userInfo[username] = [];
 }
 
 const loginData = {
